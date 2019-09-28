@@ -83,7 +83,7 @@ export default {
         },
         deltheme(){
             http({
-                url:'https://xiaoshunshun.cn:2001/vue/deltheme',
+                url:'https://xiaoshunshun.cn:1901/vue/deltheme',
                 method:"POST",
                 data:{
                     // _id:
@@ -96,7 +96,7 @@ export default {
     },    
     mounted(){
         http({
-            url:'https://xiaoshunshun.cn:2001/vue/deltheme',
+            url:'https://xiaoshunshun.cn:1901/vue/deltheme',
             method:'POST',
             success:()=>{
 

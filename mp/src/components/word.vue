@@ -17,7 +17,8 @@
     </div>
 </template>
 <script>
-import { Toast } from 'vant'
+
+import {http} from '../utils/ajax'
 export default {
     data(){
         return{
@@ -27,21 +28,42 @@ export default {
     },
     methods:{
         del(data){
-            this.$axios.post('/vue/delcomment',{_id:data}).then(result=>{
-                Toast(result.data.msg)
+            // this.$axios.post('/vue/delcomment',{_id:data}).then(result=>{
+            // })
+            http({
+                url:"https://xiaoshunshun.cn:1901/vue/delcomment",
+                method:'POST',
+                data:{
+                    _id:data
+                }
             })
         }
     },
     props:['id'],
     mounted(){
-        this.$axios.get('/vue/getcomment',{params:{themeid:this.id}}).then(result=>{
-            this.comments =result.data.result
-        })
+        // this.$axios.get('/vue/getcomment',{params:{themeid:this.id}}).then(result=>{
+        //     this.comments =result.data.result
+        // })
+        http({
+                url:"https://xiaoshunshun.cn:1901/vue/getcomment",
+                method:'GET',
+                data:{
+                    themeid:this.id
+                }
+            })
+
     },
     updated(){
-        this.$axios.get('/vue/getcomment',{params:{themeid:this.id}}).then(result=>{
-            this.comments =result.data.result
-        })
+        // this.$axios.get('/vue/getcomment',{params:{themeid:this.id}}).then(result=>{
+        //     this.comments =result.data.result
+        // })
+        http({
+                url:"https://xiaoshunshun.cn:1901/vue/getcomment",
+                method:'GET',
+                data:{
+                    themeid:this.id
+                }
+            })
     }
 }
 </script>
