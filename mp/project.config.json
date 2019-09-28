@@ -1,9 +1,14 @@
 {
 	"description": "项目配置文件。",
 	"setting": {
+<<<<<<< 1414ebd54fedfa0f138ae9cede70d832b1bab067
 <<<<<<< HEAD
 		"urlCheck": false,
 		"es6": false,
+=======
+		"urlCheck": false,
+		"es6": true,
+>>>>>>> he
 		"postcss": true,
 		"minified": true,
 		"newFeature": true,
@@ -17,6 +22,7 @@
 			"disablePlugins": [],
 			"outputPath": ""
 		}
+<<<<<<< 1414ebd54fedfa0f138ae9cede70d832b1bab067
 =======
 		"urlCheck": true,
 		"es6": false,
@@ -24,6 +30,8 @@
 		"minified": true,
 		"newFeature": true
 >>>>>>> 1246c008f1af074febc61a2ea3d24f79f40cfe21
+=======
+>>>>>>> he
 	},
 	"miniprogramRoot": "dist/wx/",
 	"compileType": "miniprogram",
