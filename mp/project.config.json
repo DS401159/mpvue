@@ -1,6 +1,7 @@
 {
 	"description": "项目配置文件。",
 	"setting": {
+<<<<<<< HEAD
 		"urlCheck": false,
 		"es6": false,
 		"postcss": true,
@@ -16,6 +17,13 @@
 			"disablePlugins": [],
 			"outputPath": ""
 		}
+=======
+		"urlCheck": true,
+		"es6": false,
+		"postcss": true,
+		"minified": true,
+		"newFeature": true
+>>>>>>> 1246c008f1af074febc61a2ea3d24f79f40cfe21
 	},
 	"miniprogramRoot": "dist/wx/",
 	"compileType": "miniprogram",

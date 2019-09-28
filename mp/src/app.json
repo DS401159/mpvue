@@ -1,8 +1,13 @@
 {
   "pages": [
     "pages/logs/main",
+<<<<<<< HEAD
     "pages/index/main",
     "pages/counter/main"
+=======
+    "pages/counter/main",
+    "pages/comment/main"
+>>>>>>> 1246c008f1af074febc61a2ea3d24f79f40cfe21
   ],
   "window": {
     "backgroundTextStyle": "light",
