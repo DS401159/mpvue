@@ -1,10 +1,23 @@
 const express = require("express");
-const port = 1906;
+const port = 2001;
 const hostname = "0.0.0.0";
-const http = require("http");
+// const http = require("http");
 const app = express();
-const server = http.createServer(app);
+// const server = http.createServer(app);
 const connection = require("./utils/db");
+
+//https 修改
+const http = require("http");
+var https = require('https');
+var fs = require("fs");
+// 第一步：https
+var privateKey  = fs.readFileSync('./cert/ding.key', 'utf8');  
+var certificate = fs.readFileSync('./cert/ding.pem', 'utf8');  
+var credentials = {key: privateKey, cert: certificate};
+var httpsServer = https.createServer(credentials,app);
+var httpServer = http.createServer(app)
+
+
 
 const  cors = require("cors");
 app.use(cors());
@@ -24,6 +37,14 @@ const {checkToken} = require("./utils");
 app.use(checkToken)
 const vue = require("./vue");
 app.use("/vue",vue);
-server.listen(port,hostname,()=>{
-    console.log(`my api server is running  at http://${hostname}:${port}`)
+
+
+// https起服务
+httpsServer.listen(port,hostname,()=>{
+    console.log(`my api server is running  at https://${hostname}:${port}`)
 })
+
+//http起服务
+// httpServer.listen(port,hostname,()=>{
+//     console.log(`my api server is running  at http://${hostname}:${port}`)
+// })

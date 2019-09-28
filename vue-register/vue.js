@@ -1,89 +1,12 @@
 const express = require("express");
 const router = express.Router();
 
-const {User, Home, Goodsdetail, Goodstype, Cart,Good} = require("./utils/schema");
+const {User,Theme,Comment} = require("./utils/schema");
 
-const {keys, aesEncrypt, aesDecrypt} = require("./utils");
+
 //注册
 
-router.post("/register", (req, res) => {
-    const body = req.body;
-    console.log(req.body);
-    User.findOne({
-        $or: [
-            {
-                username: body.username,
-            },
-            {
-                mobile: body.mobile
-            }
-        ]
-    }, {}).then(result => {
-        console.log(result)
-        if (result) {
-            res.json({
-                code: 200,
-                msg: "注册失败,用户名或者手机号已经存在",
-                type: 0
-            })
-        } else {
-            User.insertMany(body).then(result => {
-                res.json({
-                    code: 200,
-                    msg: "注册成功...",
-                    type: 1
-                })
-            })
-        }
-    })
-})
-//登录
-router.post("/login", (req, res) => {
-    const body = req.body;
-    console.log(body);
-    User.findOne({
-        $or: [
-            {
-                username: body.keys,
-            },
-            {
-                mobile: body.keys,
-            }
-        ]
-    }, {}).then(result => {
-        console.log(result)
-        if (result) {
-            if (result.password == body.password) {
-                // token    发送给前端  
-                // session  后端 
-                console.log(req.session);
 
-                const token = aesEncrypt(result.username, keys);
-                req.session.token = token;
-
-                res.json({
-                    code: 200,
-                    msg: "登录成功",
-                    token,
-                    type: 1
-                })
-            } else {
-                res.json({
-                    code: 200,
-                    msg: "密码错误",
-                    type: 0
-                })
-            }
-        } else {
-            res.json({
-                code: 200,
-                msg: "用户名或者手机号不存在",
-                type: 0
-            })
-        }
-    })
-
-})
 
 const multer = require("multer");
 const storage = multer.diskStorage({
@@ -125,229 +48,87 @@ router.post("/uploadAvatar", upload, (req, res) => {
 
 });
 
-router.post("/getAvatar", (req, res) => {
-    const {username} = req.body;
-    console.log(username)
-    User.findOne({
-        username,
-    }).then(result => {
-        if (result.avatar) {
-            res.json({
-                code: 200,
-                msg: "获取个人头像成功",
-                type: 1,
-                avatar: result.avatar
-            })
-            // console.log(avatar)
-        } else {
-            res.json({
-                code: 200,
-                msg: "个人头像尚未上传",
-                type: 0,
-                avatar: null
 
-            })
-            // console.log(avatar)
-        }
-    })
-
-});
-// 获取商品分类的内容
-router.get("/getGoodTypes", (req, res) => {
-    Goodstype.find({},{}).then(result => {
-        res.json({
-            code: 200,
-            msg: "获取商品分类成功",
-            result
-        })
-        console.log(result)
-    })
-})
-//获取首页数据
-// db.goodsdetails.findOne({Id:'958294c4-32bc-4a7e-9281-58a903e7b41b'},{Id:1,infoImg:1,CarouselIamges:1,Name:1,OriginPlace:1,Stock:1,SalesVolume:1,ShopPrice:1,OrgPrice:1,Unit:1})
-router.get("/getHomes", (req, res) => {
-    Home.find({}).then(result => {
-        res.json({
-            code: 200,
-            msg: "获取商品数据成功",
-            result
-        })
-    })
-});
-//获取商品列表
-router.get("/goods", (req, res) => {
-    Good.find({}).then(result => {
-        res.json({
-            code: 200,
-            msg: "获取商品数据成功",
-            result
-        })
-    })
-});
-//获取商品详情
-router.get("/getGoodDetail", (req, res) => {
-    const {
-        goodId
-    } = req.query;
-
-    console.log(req.query);
-    Goodsdetail.findOne({
-        Id: goodId
-    }, {
-        Id: 1,
-        infoImg: 1,
-        CarouselIamges: 1,
-        Name: 1,
-        OriginPlace: 1,
-        Stock: 1,
-        SalesVolume: 1,
-        ShopPrice: 1,
-        OrgPrice: 1,
-        Unit: 1
-    }).then((result) => {
-        res.json({
-            code: 200,
-            msg: "获取商品详情数据成功",
-            result
-        })
-
-    })
-});
-//查询是否存在,存在修改,不存在新增
-router.post("/insertCart", (req, res) => {
-    const {
-        buyNum,
-        username,
-        goodsId,
-        goodsName,
-        goodsImg,
-        goodsPrice,
-        __v
-    } = req.body;
-    // console.log(req.body)
-    Cart.findOne({
-        username,goodsId
-    }).then(result=>{
-        if (result){
-            Cart.update({
-                username, goodsId
-            },{
-                $inc:{
-                    buyNum:buyNum*1,
-                },
-                $set:{
-                    time:Date.now()
-                }
-            }).then(result=>{
-                res.json({
-                    code:200,
-                    msg:"购物车更新完成",
-                    result
-                })
-            })
-
-        } else {
-            Cart.insertMany({
-                buyNum:buyNum*1,  username,goodsId,goodsName,goodsImg,goodsPrice,__v,time:Date.now()
-            }).then(result=>{
-                res.json({
-                    code:200,
-                    msg:'购物车新增成功',
-                    result,
-                })
-            })
-        }
-    })
-})
-
-//获取购物车数据
-router.post("/mycart",(req,res)=>{
-    const {
-        username
-    }=req.body
-    // console.log(req.body)
-    Cart.find({username},{}).sort({time:-1}).then(result=>{
-        if(result){
-            let total = 0;
-            result.forEach(item=>{
-                total+=item.buyNum*1;
-            })
-            res.json({
-                code:200,
-                msg:'获取购物车信息成功',
-                carList:result,
-                total
-            })
-        }else{
-            res.json({
-                code:200,
-                msg:'购物车空空如也',
-                carList:null
-            })
-        }
-    })
-})
-//加减
-router.post("/onchange",(req,res)=>{
-    const {
-        username,
-        buyNum,
-        goodsId
-    }=req.body
-    // console.log(req.body)
-    Cart.update({username,goodsId},{$set:{buyNum}}).then(result=>{
-        // if (result){
-        //     let total = 0;
-        // }
+//发表
+router.post('/settheme',upload,(req,res)=>{
+    var body=req.body
+    img=req.files[0].path
+    Theme.insertMany({
+        img,
+        username:body.username,
+        word:body.word,
+        avatar:body.avatar,
+        count:body.count,
+        time:body.time,
+        addres:body.time,
+        shoucang:body.shoucang
+    },{}).then(result=>{
         res.json({
             code:200,
-            msg:'购物车新增成功',
-            result,
-            // total
-        })
-    })
-});
-router.post('/delmycar',(req,res)=>{
-    const{
-        id
-    }=req.body
-    console.log(id)
-    Cart.deleteMany({
-        _id: id,
-    }).then(result=>{
-        res.json({
-            code: 200,
-            msg: '购物车删除完成',
-            result,
+            msg:'发表成功',
+            result
         })
 
     })
 })
-router.post("/search",(req,res)=>{
-    const {
-        keyword
-    }=req.body
-    console.log(keyword)
-    if (keyword){
-        obj = {
-            $or:[
-                {
-                    Name:new RegExp(keyword)
-                }
-            ]
-        }
 
+//根据话题ID进入评论列表
+router.get('/gettheme',(req,res)=>{
+    var {_id}=req.query
+    var obj={}
+    if(_id){
+        obj._id=_id
     }
-    Goodsdetail.find(obj,{}).sort({
-        _id:-1
-    }).then(result=>{
-
+    if(username){
+        obj.username=username
+        obj.shoucang=shoucang
+    }
+    Theme.find(obj,{}).sort({_id:-1}).then(result=>{
         res.json({
-            code: 200,
-            msg: '查询成功',
-            result,
+            code:200,
+            msg:'获取成功',
+            result
         })
-        console.log(result)
     })
 })
+
+
+//发表评论
+router.post('/setcomment',(req,res)=>{
+    var body=req.body
+    Comment.insertMany(body).then(result=>{
+        res.json({
+            code:200,
+            msg:'评论成功',
+            result
+        })
+    })
+})
+
+//获取评论
+router.get('/getcomment',(req,res)=>{
+    var query=req.query
+    Comment.find({themeid:query.themeid},{}).then(result=>{
+        res.json({
+            code:200,
+            msg:'获取评论成功',
+            result
+        })
+    })
+})
+
+//可以删除自己的话题
+router.post('/deltheme',(req,res)=>{
+    var body=req.body
+    Theme.deleteOne({_id:body._id}).then(result=>{
+        res.json({
+            code:200,
+            msg:'删除成功',
+            result
+        })
+    })
+})
+
+
+
 module.exports = router;
