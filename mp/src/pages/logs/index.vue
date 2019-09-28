@@ -1,61 +1,220 @@
 <template>
-  <div>
-      <swiper v-if="imgUrls.length > 0" indidator-dots="imgUrls.length > 1" >
-      <block v-for="(item, index) in imgUrls" :key="index" >
-        <swiper-item>
-          <image :src="item" mode="scaleToFill"></image>
-        </swiper-item>
-      </block>
-    </swiper>
+  <div class="user">
+    <img class="bg" src="/static/images/timg.jpg" background-size="cover" />
+    <!-- 获取用户头像 -->
 
-    <ul class="container log-list">
-      <li v-for="(log, index) in logs" :class="{ red: aa }" :key="index" class="log-item">
-        <card :text="(index + 1) + ' . ' + log"></card>
-      </li>
-    </ul>
+    <div class="container">
+      <div class="userinfo" v-if="userInfo.nickName">
+        <p>基本信息</p>
+        <img class="userinfo-avatar" :src="userInfo.avatarUrl" background-size="cover" />
+        <p class="userinfo-nickname">{{userInfo.nickName}}</p>
+      </div>
+      <button
+        v-if="!userInfo.nickName"
+        open-type="getUserInfo"
+        @getuserinfo="authSetUser"
+        class="toLogin"
+      >授权登录</button>
+    </div>
+    <!-- 个人中心列表 -->
+    <div class="list">
+      <div class="wallet">
+        <img class="imgs" src="/static/images/wallet.png" />
+        <span class="txt">我的财富</span>
+      </div>
+      <div class="f2">
+        <div class="photo">
+          <img class="imgs" src="/static/images/photo.png" />
+          <span class="txt">我的照片</span>
+        </div>
+        <div class="liuyan">
+          <img class="imgs" src="/static/images/liuyan.png" />
+          <span class="txt">我的留言</span>
+        </div>
+      </div>
+      <div class="f3">
+        <div class="place">
+          <img class="imgs" src="/static/images/place.png" />
+          <span class="txt">我的地点</span>
+        </div>
+        <div class="liulan">
+          <img class="imgs" src="/static/images/liulan.png" />
+          <span class="txt">我的浏览</span>
+        </div>
+        <div class="collection">
+          <img class="imgs" src="/static/images/collection.png" />
+          <span class="txt">我的收藏</span>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
-import { formatTime } from '@/utils/index'
-import card from '@/components/card'
-
+const { http } = require("../../utils/ajax");
 export default {
-  components: {
-    card
-  },
-
-  data () {
+  data() {
     return {
-      logs: [],
-      imgUrls: [
-        'http://mss.sankuai.com/v1/mss_51a7233366a4427fa6132a6ce72dbe54/newsPicture/05558951-de60-49fb-b674-dd906c8897a6',
-        'http://mss.sankuai.com/v1/mss_51a7233366a4427fa6132a6ce72dbe54/coursePicture/0fbcfdf7-0040-4692-8f84-78bb21f3395d',
-        'http://mss.sankuai.com/v1/mss_51a7233366a4427fa6132a6ce72dbe54/management-school-picture/7683b32e-4e44-4b2f-9c03-c21f34320870'
-      ]
-    }
+      userInfo: {}
+    };
   },
-
-  created () {
-    let logs
-    if (mpvuePlatform === 'my') {
-      logs = mpvue.getStorageSync({key: 'logs'}).data || []
-    } else {
-      logs = mpvue.getStorageSync('logs') || []
+  created() {
+    this.getUserInfo();
+  },
+  methods: {
+    authSetUser(e) {
+      this.userInfo = e.mp.detail.userInfo;
+    },
+    getUserInfo() {
+      // 调用登录接口
+      var _this = this;
+      mpvue.getUserInfo({
+        //当已授权getUserInfo时
+        success(res) {
+          console.log(res);
+          _this.userInfo = res.userInfo;
+          mpvue.login({
+            success: res => {
+              if (res.code) {
+                //发起网络请求
+                http({
+                  url: "https://test.com/onLogin",
+                  data: {
+                    code: res.code
+                  },
+                  success: result => {
+                    http({
+                      url: "https://api.weixin.qq.com/sns/jscode2session",
+                      data: {
+                        appid: "wxee77534ba004d7ff",
+                        secret: "9841390c8970b85dcb013a12918230da",
+                        js_code: res.code,
+                        grant_type: "authorization_code"
+                      },
+                      success: value => {
+                        console.log(value);
+                      }
+                    });
+                  }
+                });
+              } else {
+                console.log("登录失败！" + res.errMsg);
+              }
+            }
+          });
+        },
+        fail(err) {
+          console.log(err);
+        }
+      });
     }
-    this.logs = logs.map(log => formatTime(new Date(log)))
   }
-}
+};
+
+//index.js
+//获取应用实例
 </script>
 
-<style>
-.log-list {
+<style scoped>
+.bg {
+  width: 100%;
+  height: 450rpx;
+  position: absolute;
+  z-index: 1;
+  top: 0;
+  border-bottom-left-radius: 10rpx;
+  border-bottom-right-radius: 10rpx;
+  box-shadow: 0 0.3rem 0.5rem 0 rgba(209, 167, 252, 0.87);
+}
+/* 个人中心列表样式 */
+.list {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 400rpx;
+  left: 0;
+  z-index: 99;
+}
+.wallet {
+  width: 92%;
+  height: 120rpx;
+  border-radius: 5px;
+  background-color: #fff;
+  margin: auto;
+  box-shadow: 0 0.3rem 0.5rem 0 rgba(209, 167, 252, 0.87);
   display: flex;
-  flex-direction: column;
-  padding: 40rpx;
+}
+.imgs {
+  width: 55rpx;
+  height: 55rpx;
+  margin-left: 5%;
+  margin-top: 5%;
+}
+.txt {
+  font-size: 32rpx;
+  line-height: 120rpx;
+  margin-left: 3%;
 }
 
-.log-item {
-  margin: 10rpx;
+.f2 {
+  width: 92%;
+  height: 240rpx;
+  border-radius: 6px;
+  background-color: #fff;
+  margin: auto;
+  margin-top: 20rpx;
+  box-shadow: 0 0.3rem 0.5rem 0 rgba(209, 167, 252, 0.87);
+}
+
+.photo,
+.liuyan,
+.place,
+.liulan,
+.collection {
+  height: 120rpx;
+  display: flex;
+}
+.f3 {
+  width: 92%;
+  height: 360rpx;
+  border-radius: 6px;
+  background-color: #fff;
+  margin: auto;
+  margin-top: 20rpx;
+  box-shadow: 0 0.3rem 0.5rem 0 rgba(209, 167, 252, 0.87);
+}
+
+/* 用户头像样式 */
+.userinfo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.userinfo-avatar {
+  width: 128rpx;
+  height: 128rpx;
+  top: 100rpx;
+  border-radius: 50%;
+  position: absolute;
+  z-index: 100;
+}
+
+.userinfo-nickname {
+  color: #333;
+  position: absolute;
+  top: 260rpx;
+  z-index: 100;
+  font-size: 40rpx;
+  font-family: "楷体";
+  font-weight: 500;
+}
+
+.toLogin {
+  width: 300rpx;
+  height: 100rpx;
+  font-size: 32rpx;
+  position: absolute;
+  z-index: 100;
 }
 </style>
