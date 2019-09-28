@@ -6,11 +6,27 @@
           <div>照片24</div>
           <div class="takephoto">拍照</div>
       </div>
+<<<<<<< 1414ebd54fedfa0f138ae9cede70d832b1bab067
       <div class="content">
         <div class="nav">
           <div>按时间</div>
           <div>按人气</div>
           <div>按距离</div>
+=======
+    </div>
+
+    <form class="form-container">
+      <input type="text" class="form-control" :value="motto" placeholder="v-model" />
+      <input type="text" class="form-control" v-model="motto" placeholder="v-model" />
+      <input type="text" class="form-control" v-model.lazy="motto" placeholder="v-model.lazy" />
+    </form>
+    <a href="/pages/counter/main" class="counter">去往Vuex示例页面</a>
+
+    <div class="all">
+        <div class="left">
+        </div>
+        <div class="right">
+>>>>>>> he
         </div>
         <Theme></Theme>
         <Theme></Theme>
@@ -19,9 +35,13 @@
 </template>
 
 <script>
+<<<<<<< 1414ebd54fedfa0f138ae9cede70d832b1bab067
 
 import Swiper from '../../components/swiper.vue'
 import Theme from '../../components/theme.vue'
+=======
+import card from '@/components/card'
+>>>>>>> he
 export default {
   data () {
     return {

@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "分享心情",
+  "usingComponents":{
+    "van-button":"/static/vant/button/index"
+  }
+}
