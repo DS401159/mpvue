@@ -74,7 +74,7 @@ router.post('/settheme',upload,(req,res)=>{
 
 //根据话题ID进入评论列表
 router.get('/gettheme',(req,res)=>{
-    var {_id}=req.query
+    var {_id,username}=req.query
     var obj={}
     if(_id){
         obj._id=_id

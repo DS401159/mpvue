@@ -13,18 +13,25 @@
 </template>
 
 <script>
-import { Toast } from 'vant'
-import {mapState} from 'vuex'
+import store from '../store'
+import {http} from '../utils/ajax'
 export default {
     data(){
         return{
             word:'',
-            show:true
+            show:true,
+            comments
         }
     },
     props:['id'],
     computed:{
+<<<<<<< HEAD
         ...mapState(['avatar'])
+=======
+        avatar(){
+            return  store.state.avatar
+        }
+>>>>>>> d2920acaa3350c6054a2c6ce505392cd1b267082
     },
 
     methods:{
@@ -44,13 +51,34 @@ export default {
             var time=`${month}-${day}`
             var avatar=this.avatar
             if(word){
-                this.$axios.post('/vue/setcomment',{themeid,username,word,time,avatar}).then(result=>{
-                    Toast(result.data.msg)
-                    this.show=true
-                    this.$axios.get('/vue/getcomment',{params:{themeid:this.id}}).then(result=>{
-                        this.comments =result.data.result
-                        this.word=''
-                    })
+                // this.$axios.post('/vue/setcomment',{themeid,username,word,time,avatar}).then(result=>{
+                //     this.show=true
+                //     this.$axios.get('/vue/getcomment',{params:{themeid:this.id}}).then(result=>{
+                //         this.comments =result.data.result
+                //         this.word=''
+                //     })
+                // })
+
+                http({
+                    url:"https://xiaoshunshun.cn:1901/vue/setcomment",
+                    method:'POST',
+                    data:{
+                        themeid,username,word,time,avatar
+                    },
+                    success:(result)=>{
+                        this.show=true
+                        http({
+                            url:"https://xiaoshunshun.cn:1901/vue/getcomment",
+                            method:'GET',
+                            data:{
+                                themeid:this.id
+                            },
+                            success:()=>{
+                                this.comments =result.data.result
+                                this.word=''
+                            }
+                        })
+                    }
                 })
             }else{
                 this.show=true

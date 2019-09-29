@@ -1,5 +1,5 @@
 const express = require("express");
-const port = 2001;
+const port = '1901';
 const hostname = "0.0.0.0";
 // const http = require("http");
 const app = express();
@@ -37,8 +37,13 @@ app.use(session({
     resave: false,
     saveUninitialized: true
 }))
+<<<<<<< HEAD
+
+
+=======
 const { checkToken } = require("./utils");
 app.use(checkToken)
+>>>>>>> 1414ebd54fedfa0f138ae9cede70d832b1bab067
 const vue = require("./vue");
 <<<<<<< HEAD
 app.use("/vue", vue);

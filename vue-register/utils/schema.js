@@ -22,7 +22,6 @@ var schema_theme=new Schema({
     time:String,
     count:Number,
     adress:Object,
-    
     choucang:Number
 })
 
