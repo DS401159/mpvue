@@ -11,7 +11,7 @@
     <h1>我的地址: {{address}}</h1>
 
     <div class="imgphoto" @click="gotophoto()">
-      <img src="../../../static/images/photo.png" alt />
+      <img src="../../../static/images/photo1.png" alt />
     </div>
   </div>
 </template>
