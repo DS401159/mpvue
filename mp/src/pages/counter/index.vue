@@ -21,7 +21,6 @@
  
         <img class="tupian" src="../../../static/images/weizhi.png" alt />
         <span class="address">{{address}}</span>
-
     </div>
   </div>
 </template>
