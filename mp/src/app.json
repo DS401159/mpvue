@@ -22,7 +22,6 @@
     "backgroundColor": "#fafafa",
     "selectedColor": "#333",
     "borderStyle": "white",
-
     "list": [{
       "text": "首页",
       "pagePath": "pages/index/main",
