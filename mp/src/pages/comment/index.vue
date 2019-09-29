@@ -19,8 +19,9 @@
 </template>
 
 <script>
-import Word from '@/components/Word'
-import Comment from '@/components/Comment'
+ import Theme from '../../components/theme.vue'
+import Swiper from '../../components/swiper.vue'
+import Theme from '../../components/theme.vue'
 
 export default {
     data(){

@@ -1,8 +1,4 @@
 <template>
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
->>>>>>> parent of a2f6339... 1.1.1
   <div class="user">
     <img class="bg" src="/static/images/timg.jpg" background-size="cover" />
     <!-- 获取用户头像 -->
@@ -51,9 +47,6 @@
         </div>
       </div>
     </div>
-<<<<<<< HEAD
-=======
-=======
   <div>
       <swiper v-if="imgUrls.length > 0" indidator-dots="imgUrls.length > 1" >
       <block v-for="(item, index) in imgUrls" :key="index" >
@@ -67,33 +60,14 @@
       <li v-for="(log, index) in logs" :class="{ red: aa }" :key="index" class="log-item">
       </li>
     </ul>
->>>>>>> 1246c008f1af074febc61a2ea3d24f79f40cfe21
->>>>>>> parent of a2f6339... 1.1.1
   </div>
 </template>
 
 <script>
-<<<<<<< HEAD
+
 const { http } = require("../../utils/ajax");
 export default {
   data() {
-=======
-<<<<<<< HEAD
-const { http } = require("../../utils/ajax");
-export default {
-  data() {
-=======
-import { formatTime } from '@/utils/index'
-
-
-export default {
-  components: {
-    
-  },
-
-  data () {
->>>>>>> 1246c008f1af074febc61a2ea3d24f79f40cfe21
->>>>>>> parent of a2f6339... 1.1.1
     return {
       userInfo: {}
     };
