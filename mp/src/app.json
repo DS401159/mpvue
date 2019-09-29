@@ -1,0 +1,47 @@
+{
+  "pages": [
+    "pages/map/main",
+    "pages/index/main",
+    "pages/logs/main",
+    "pages/counter/main",
+    "pages/comment/main"
+  ],
+  "permission": {
+    "scope.userLocation": {
+      "desc": "位置信息"
+    }
+  },
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#fff",
+    "navigationBarTitleText": "WeChat",
+    "navigationBarTextStyle": "black"
+  },
+  "tabBar": {
+    "color": "#999",
+    "backgroundColor": "#fafafa",
+    "selectedColor": "#333",
+    "borderStyle": "white",
+
+    "list": [{
+      "text": "首页",
+      "pagePath": "pages/index/main",
+      "iconPath": "static/tabs/home.png",
+      "selectedIconPath": "static/tabs/home-active.png"
+    },
+    {
+      "text": "定位",
+      "pagePath": "pages/map/main",
+      "iconPath": "static/tabs/map.png",
+      "selectedIconPath": "static/tabs/map-active.png"
+    },
+    {
+      "text": "订单",
+      "pagePath": "pages/logs/main",
+      "iconPath": "static/tabs/orders.png",
+      "selectedIconPath": "static/tabs/orders-active.png"
+    }],
+
+    "position": "bottom"
+  }
+}
