@@ -1,42 +1,25 @@
 {
-	"description": "项目配置文件。",
+	"description": "项目配置文件",
+	"packOptions": {
+		"ignore": []
+	},
 	"setting": {
-<<<<<<< 1414ebd54fedfa0f138ae9cede70d832b1bab067
-<<<<<<< HEAD
-		"urlCheck": false,
-		"es6": false,
-=======
-		"urlCheck": false,
+		"urlCheck": true,
 		"es6": true,
->>>>>>> he
 		"postcss": true,
 		"minified": true,
 		"newFeature": true,
-		"coverView": true,
 		"autoAudits": false,
-		"checkInvalidKey": true,
-		"checkSiteMap": true,
-		"uploadWithSourceMap": true,
-		"babelSetting": {
-			"ignore": [],
-			"disablePlugins": [],
-			"outputPath": ""
-		}
-<<<<<<< 1414ebd54fedfa0f138ae9cede70d832b1bab067
-=======
-		"urlCheck": true,
-		"es6": false,
-		"postcss": true,
-		"minified": true,
-		"newFeature": true
->>>>>>> 1246c008f1af074febc61a2ea3d24f79f40cfe21
-=======
->>>>>>> he
+		"coverView": true
 	},
-	"miniprogramRoot": "dist/wx/",
 	"compileType": "miniprogram",
+	"libVersion": "2.8.3",
 	"appid": "wxee77534ba004d7ff",
-	"projectname": "mp",
+	"projectname": "miniprogram-2",
+	"debugOptions": {
+		"hidedInDevtools": []
+	},
+	"isGameTourist": false,
 	"simulatorType": "wechat",
 	"simulatorPluginLibVersion": {},
 	"condition": {

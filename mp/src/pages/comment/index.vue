@@ -2,7 +2,7 @@
     <div>
         <div class="content">
             <div class="top">
-                <img src="../../static/images/pic1.png" alt="">
+                <img src="../../../static/images/pic1.png" alt="">
                 <div>
                     <p class="name">111</p>
                     <p class="time">11</p>
@@ -11,7 +11,7 @@
             <p class="word">
                <!-- {{theme.word}} -->111
             </p>
-            <img src="../../static/images/pic1.png" alt="" class="addimg">
+            <img src="../../../static/images/pic1.png" alt="" class="addimg">
         </div>  
         <!-- <Word :id='id'></Word>
         <Comment :id='id'></Comment> -->

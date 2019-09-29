@@ -5,7 +5,7 @@
         </div>
         <div class="box" v-else @click.stop="hiden()">
             <div class="foot" @click.stop="comment()">
-                <textarea name="" id="" cols="30" rows="3" v-model="word" placeholder="我也来说两句..." v-focus></textarea>
+                <textarea name="" id="" cols="30" rows="3" v-model="word" placeholder="我也来说两句..."></textarea>
                 <div class="push" @click.stop='push'>发表</div>
             </div>
         </div>
@@ -26,13 +26,7 @@ export default {
     computed:{
         ...mapState(['avatar'])
     },
-    directives:{
-        focus:{
-            inserted(el){
-                el.focus()
-            }
-        }
-    },
+
     methods:{
         comment(){
             this.show=false
