@@ -14,7 +14,7 @@
 
     
     <div class="imgphoto" @click="todophoto">
-      <img src="../../../static/images/photo.png" alt />
+      <img src="../../../static/images/photo1.png" alt />
     </div>
     <van-button class="butt" plain round  type="primary">发送</van-button>
     <div class="weizhi">

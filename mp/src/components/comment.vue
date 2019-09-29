@@ -25,13 +25,9 @@ export default {
     },
     props:['id'],
     computed:{
-<<<<<<< HEAD
-        ...mapState(['avatar'])
-=======
         avatar(){
             return  store.state.avatar
         }
->>>>>>> d2920acaa3350c6054a2c6ce505392cd1b267082
     },
 
     methods:{
