@@ -21,4 +21,5 @@ exports.http = function({url,method,data,success}){
       }
     })
 }
+
 // "https://peng47.com:2906/react/sendCode"
