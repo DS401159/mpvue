@@ -56,7 +56,7 @@ const { http } = require("../../utils/ajax");
 
 export default {
   components: {
-    
+  
   },
 
   data () {
