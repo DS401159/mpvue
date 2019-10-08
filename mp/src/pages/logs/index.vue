@@ -1,5 +1,4 @@
 <template>
-
   <div class="user">
     <img class="bg" src="/static/images/timg.jpg" background-size="cover" />
     <!-- 获取用户头像 -->
@@ -48,7 +47,6 @@
         </div>
       </div>
     </div>
-
   </div>
 </template>
 

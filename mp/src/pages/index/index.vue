@@ -7,7 +7,6 @@
           <div class="takephoto">拍照</div>
       </div>
 
-
       <div class="content">
         <div class="nav">
           <div>按时间</div>
@@ -29,7 +28,7 @@ import Theme from '../../components/theme.vue'
 export default {
   data () {
     return {
-     
+      
     }
   },
   components: {

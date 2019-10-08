@@ -19,21 +19,20 @@
 </template>
 
 <script>
-import Word from '@/components/Word'
-import Comment from '@/components/Comment'
+ import Theme from '../../components/theme.vue'
+import Swiper from '../../components/swiper.vue'
 
 export default {
     data(){
         return{
             show:true,
             theme:{},
-            id:this.$route.query._id,
             login1:true
         }
     },
     components:{
-        Word,
-        Comment
+        // Word,
+        // Comment
     },
     mounted(){
         this.$axios.get('/vue/gettheme',{params:{_id:this.id}}).then(result=>{

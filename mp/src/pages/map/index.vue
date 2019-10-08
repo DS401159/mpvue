@@ -61,7 +61,7 @@ export default {
         this.longitude = longitude;
         console.log("location", res);
         var locationString = res.latitude + "," + res.longitude;
-        wx.request({
+        mpvue.request({
           url: "http://apis.map.qq.com/ws/geocoder/v1/",
           data: {
             key: "WJBBZ-2NZ3F-VOKJU-NC6PL-VU5FF-PZF2R",
