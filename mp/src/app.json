@@ -1,7 +1,7 @@
 {
   "pages": [
-    "pages/map/main",
     "pages/index/main",
+    "pages/map/main",
     "pages/logs/main",
     "pages/counter/main",
     "pages/comment/main"
@@ -35,7 +35,7 @@
       "selectedIconPath": "static/tabs/map-active.png"
     },
     {
-      "text": "订单",
+      "text": "我的",
       "pagePath": "pages/logs/main",
       "iconPath": "static/tabs/orders.png",
       "selectedIconPath": "static/tabs/orders-active.png"

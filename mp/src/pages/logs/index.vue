@@ -124,6 +124,10 @@ export default {
 </script>
 
 <style scoped>
+.user{
+  width: 100%;
+  height: 100vh;
+}
 .bg {
   width: 100%;
   height: 450rpx;
@@ -137,7 +141,7 @@ export default {
 /* 个人中心列表样式 */
 .list {
   width: 100%;
-  height: 100%;
+  height: 75%;
   position: absolute;
   top: 400rpx;
   left: 0;

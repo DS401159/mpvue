@@ -1,11 +1,6 @@
 <template>
-  <!-- <p>Vuex counter：{{ count }}</p>
-    <p>
-      <button @click="increment">+</button>
-      <button @click="decrement">-</button>
-  </p>-->
   <div class="photo">
-    <textarea placeholder="分享新鲜事..." class="shuoshuo"  v-model="value"></textarea>
+    <textarea placeholder="这一刻的想法...." class="shuoshuo"  v-model="value"></textarea>
 
     <div class="imgii">
       <img class="imgOne" :src="img" alt />
@@ -16,12 +11,14 @@
     <div class="imgphoto" @click="todophoto">
       <img src="../../../static/images/photo1.png" alt />
     </div>
-    <van-button class="butt" plain round  type="primary">发送</van-button>
+
+    <van-button class="butt"  round  type="primary"  @click="godoshuoshuo">{{butt}}</van-button>
+
     <div class="weizhi">
- 
         <img class="tupian" src="../../../static/images/weizhi.png" alt />
         <span class="address">{{address}}</span>
     </div>
+
   </div>
 </template>
 
@@ -35,19 +32,14 @@ export default {
     return {
       img: "",
       value:null,
-      address: "你在哪?"
+      address: "你在哪?",
+      butt:"发 送"
     };
   },
   mounted(){
     
   },
   methods: {
-    // increment () {
-    //   store.commit('increment')
-    // },
-    // decrement () {
-    //   store.commit('decrement')
-    // }
     todophoto() {
       wx.chooseImage({
         count: 1,
@@ -58,10 +50,13 @@ export default {
           const tempFilePaths = res.tempFilePaths;
           this.img = tempFilePaths;
           this.address = mpvue.getStorageSync("locationInfo");
-   console.log(this.value)
         }
       });
     },
+    //去发说说
+    godoshuoshuo(){
+
+    }
 
   }
 };
@@ -69,10 +64,11 @@ export default {
 
 <style>
 .photo {
-  width: 100%;
+  width: 95%;
   height: 100vh;
-  background-color: #f0f0f0;
-  padding: 20rpx;
+  /* background-color: #f0f0f0; */
+  margin: 0 auto;
+  position: relative;
 }
 .shuoshuo {
   width: 100%;
@@ -80,7 +76,7 @@ export default {
 }
 
 .imgOne {
-  width: 300rpx;
+  width: 350rpx;
   height: 300rpx;
 }
 .imgphoto {
@@ -103,33 +99,27 @@ export default {
   width: 250rpx;
   height: 45rpx;
   border-radius: 30rpx;
-  padding: 15rpx;
-  border: #999 solid 2rpx;
-  background-color: #edece8;
-  position: relative;
-  left: 20rpx;
+  padding: 10rpx;
+  position: absolute;
   z-index: 999;
-
-
-
+  bottom: 20rpx;
 }
 
 .address {
-  /* font-size: 18rpx; */
   position: absolute;
-  top: 20rpx;
+  top: 15rpx;
   left: 45rpx;
   margin-left: 20rpx;
   color: #333;
   font-size: 28rpx;
   width: 200rpx;
   white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 .butt{
   position: absolute;
   bottom: 20rpx;
-  right: 20rpx;
+  right:0;
 }
 </style>

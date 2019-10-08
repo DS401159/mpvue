@@ -8,7 +8,7 @@
       bindmarkertap="markertap"
       show-location
     ></map>
-    <h1>我的地址: {{address}}</h1>
+    <!-- <h1>我的地址: {{address}}</h1> -->
 
     <div class="imgphoto" @click="gotophoto()">
       <img src="../../../static/images/photo1.png" alt />
@@ -93,7 +93,7 @@ export default {
 <style scoped>
 #map {
   width: 100%;
-  height: 95vh;
+  height: 100vh;
 }
 .imgphoto {
   width: 100rpx;
